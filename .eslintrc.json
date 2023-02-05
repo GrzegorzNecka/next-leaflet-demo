@@ -1,3 +1,19 @@
 {
-  "extends": "next/core-web-vitals"
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "next"],
+
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unused-vars": "off"
+        // "padded-blocks": ["error", { "blocks": "always" }]
+    },
+    "overrides": [
+        {
+            // 3) Now we enable eslint-plugin-testing-library rules or preset only for matching testing files!
+            "files": ["**/components/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)"],
+            "extends": ["eslint:recommended", "next"]
+        }
+    ]
 }
