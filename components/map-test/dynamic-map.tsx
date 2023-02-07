@@ -1,26 +1,13 @@
 import { useEffect } from 'react';
-import type { LatLngTuple } from 'leaflet';
 import Leaflet from 'leaflet';
 import * as ReactLeaflet from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
 import styles from './Map.module.scss';
+import type { DynamicMapProps } from '../../types/leaflet';
 
 const { MapContainer } = ReactLeaflet;
 
-type ReactLeafletType = typeof ReactLeaflet;
-type LeafletType = typeof Leaflet;
-
-export type MapProps = {
-    children: (ReactLeaflet: ReactLeafletType, Leaflet: LeafletType) => React.ReactNode;
-    className?: string;
-    width: number;
-    height: number;
-    zoom: number;
-    center: LatLngTuple;
-};
-
-const DynamicMap = ({ children, className, width, height, ...rest }: MapProps) => {
+const DynamicMap = ({ children, className, width, height, ...rest }: DynamicMapProps) => {
     let mapClassName = styles.map;
 
     if (className) {
@@ -28,10 +15,6 @@ const DynamicMap = ({ children, className, width, height, ...rest }: MapProps) =
     }
 
     useEffect(() => {
-        if (typeof window === 'undefined') {
-            return;
-        }
-
         (async function init() {
             // delete Leaflet.Icon.Default.prototype._getIconUrl;
             Leaflet.Icon.Default.mergeOptions({
@@ -43,7 +26,7 @@ const DynamicMap = ({ children, className, width, height, ...rest }: MapProps) =
     }, []);
 
     return (
-        <MapContainer scrollWheelZoom={false} className={mapClassName} {...rest}>
+        <MapContainer scrollWheelZoom={true} className={mapClassName} {...rest}>
             {children(ReactLeaflet, Leaflet)}
         </MapContainer>
     );
