@@ -3,19 +3,11 @@ import type { LatLngTuple } from 'leaflet';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.scss';
-import { MapContainer, Marker, Popup, TileLayer, GeoJSON, useMap } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import tileLayer from '@/utils/tile-Layer';
-import { wojewodztwa } from '@/data/geojson';
-import { onEachFeature } from '@/utils/geo-json';
-import L from 'leaflet';
+import { Wojewodztwa } from './wojewodztwa';
 
 const DEFAULT_CENTER: LatLngTuple = [52.2111249, 18.9940314];
-
-function MyComponent() {
-    const map = useMap();
-    console.log('map center:', map.getCenter());
-    return null;
-}
 
 const Map = () => {
     const mapClassName = styles.map;
@@ -37,11 +29,6 @@ const Map = () => {
         })();
     }, [isMap]);
 
-    useEffect(() => {
-        console.log(isMap);
-        console.log(L);
-    }, [isMap]);
-
     return (
         <MapContainer
             key={new Date().getTime()}
@@ -50,15 +37,14 @@ const Map = () => {
             center={DEFAULT_CENTER}
             zoom={7}
             scrollWheelZoom={false}
-            style={{ height: '800px', width: '900px' }}>
+            style={{ height: '900px', width: '1100px' }}>
             <TileLayer {...tileLayer} />
             <Marker position={DEFAULT_CENTER}>
                 <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
             </Marker>
-            <MyComponent />
-            <GeoJSON data={wojewodztwa} onEachFeature={onEachFeature} />
+            <Wojewodztwa />
         </MapContainer>
     );
 };
