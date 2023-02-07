@@ -28,6 +28,10 @@ const DynamicMap = ({ children, className, width, height, ...rest }: MapProps) =
     }
 
     useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
         (async function init() {
             // delete Leaflet.Icon.Default.prototype._getIconUrl;
             Leaflet.Icon.Default.mergeOptions({
@@ -39,7 +43,7 @@ const DynamicMap = ({ children, className, width, height, ...rest }: MapProps) =
     }, []);
 
     return (
-        <MapContainer className={mapClassName} {...rest}>
+        <MapContainer scrollWheelZoom={false} className={mapClassName} {...rest}>
             {children(ReactLeaflet, Leaflet)}
         </MapContainer>
     );

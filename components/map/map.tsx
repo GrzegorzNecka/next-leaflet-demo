@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import type { MapProps } from './dynamic-map';
 
+//becouse external dependency  relies on browser APIs like window.
 const DynamicMap = dynamic(() => import('./dynamic-map'), {
     ssr: false,
 });
