@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { LatLngTuple } from 'leaflet';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.scss';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { LayersControl, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import tileLayer from '@/utils/tile-Layer';
 import { Wojewodztwa } from './wojewodztwa';
+import { DisplayCoordinates } from './display-cooridnates';
 
-const DEFAULT_CENTER: LatLngTuple = [52.2111249, 18.9940314];
+const INITIAL_CENTER: LatLngTuple = [52.2111249, 18.9940314];
+const INITIAL_ZOOM = 7;
 
 const Map = () => {
     const mapClassName = styles.map;
-
+    const [map, setMap] = useState(null);
     const [isMap, setIsMap] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,16 +36,19 @@ const Map = () => {
             key={new Date().getTime()}
             whenReady={() => setIsMap(true)}
             className={mapClassName}
-            center={DEFAULT_CENTER}
-            zoom={7}
+            center={INITIAL_CENTER}
+            zoom={INITIAL_ZOOM}
             scrollWheelZoom={false}
             style={{ height: '900px', width: '1100px' }}>
             <TileLayer {...tileLayer} />
-            <Marker position={DEFAULT_CENTER}>
+            <Marker position={INITIAL_CENTER}>
                 <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
             </Marker>
+
+            <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
+
             <Wojewodztwa />
         </MapContainer>
     );
