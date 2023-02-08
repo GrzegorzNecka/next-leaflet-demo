@@ -2,6 +2,7 @@ import { wojewodztwa } from '@/data/geojson';
 import { GeoJSON, useMap, useMapEvents } from 'react-leaflet';
 import type L from 'leaflet';
 import type { Feature, Geometry } from 'geojson';
+import { usePointerState } from '@/context/pointer-context';
 
 function bindPopupWithGeoJsonProperty(feature: Feature<Geometry, any>, layer: L.Layer) {
     if (feature.properties && feature.properties.nazwa) {
@@ -10,11 +11,15 @@ function bindPopupWithGeoJsonProperty(feature: Feature<Geometry, any>, layer: L.
 }
 
 export const Wojewodztwa = () => {
+    const pointerState = usePointerState();
     const map = useMap();
-    console.log('map center:', map.getCenter());
 
     function onEachFeature(feature: Feature<Geometry, any>, layer: L.Path) {
         layer.setStyle({ fillColor: 'black', color: 'red', weight: 2, fillOpacity: 0.1 });
+
+        layer.on('click', function (e) {
+            pointerState.addPosition(e.latlng);
+        });
 
         layer.on('mouseover', function (e) {
             bindPopupWithGeoJsonProperty(feature, layer);

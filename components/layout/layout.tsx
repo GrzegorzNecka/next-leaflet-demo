@@ -10,8 +10,8 @@ export const Layout = ({ children }: LayoutProps) => {
     return (
         <div className="flex flex-col mi-h-screen">
             <Head>
-                <title>demo sklep</title>
-                <meta name="description" content="opis sklepu"></meta>
+                <title>demo leaflet map</title>
+                <meta name="description" content="demo leaflet map"></meta>
             </Head>
 
             <Header>
