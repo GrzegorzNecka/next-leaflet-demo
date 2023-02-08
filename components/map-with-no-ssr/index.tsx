@@ -5,8 +5,9 @@ import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.scss';
 import { LayersControl, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import tileLayer from '@/utils/tile-Layer';
-import { Wojewodztwa } from './wojewodztwa';
+import { Wojewodztwa } from './wojewodztwa-geojson';
 import { DisplayCoordinates } from './display-cooridnates';
+import { LayerControlPoints } from './layer-control-points';
 
 const INITIAL_CENTER: LatLngTuple = [52.2111249, 18.9940314];
 const INITIAL_ZOOM = 7;
@@ -38,17 +39,16 @@ const Map = () => {
             className={mapClassName}
             center={INITIAL_CENTER}
             zoom={INITIAL_ZOOM}
-            scrollWheelZoom={false}
+            scrollWheelZoom={true}
             style={{ height: '900px', width: '1100px' }}>
             <TileLayer {...tileLayer} />
-            <Marker position={INITIAL_CENTER}>
+            <LayerControlPoints />
+            {/* <Marker position={INITIAL_CENTER}>
                 <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
-            </Marker>
-
+            </Marker> */}
             <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
-
             <Wojewodztwa />
         </MapContainer>
     );
