@@ -1,16 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { LatLngTuple } from 'leaflet';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import styles from './Map.module.scss';
-import { LayersControl, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
-import tileLayer from '@/utils/tile-Layer';
-import { Wojewodztwa } from './wojewodztwa-geojson';
+import styles from '@/styles/Map.module.css';
+import { MapContainer } from 'react-leaflet';
 import { DisplayCoordinates } from './display-cooridnates';
-import { LayerControlPoints } from './layer-control-points';
-
-const INITIAL_CENTER: LatLngTuple = [52.2111249, 18.9940314];
-const INITIAL_ZOOM = 7;
+import { LayerControl } from './layers/layers-control';
+import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/initial-config';
 
 const Map = () => {
     const mapClassName = styles.map;
@@ -41,15 +36,8 @@ const Map = () => {
             zoom={INITIAL_ZOOM}
             scrollWheelZoom={true}
             style={{ height: '900px', width: '1100px' }}>
-            <TileLayer {...tileLayer} />
-            <LayerControlPoints />
-            {/* <Marker position={INITIAL_CENTER}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker> */}
+            <LayerControl />
             <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
-            <Wojewodztwa />
         </MapContainer>
     );
 };

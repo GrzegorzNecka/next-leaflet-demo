@@ -1,5 +1,5 @@
 import { wojewodztwa } from '@/data/geojson';
-import tileLayer from '@/utils/tile-Layer';
+import openStreetMap from '@/utils/tile-layer';
 import type { Feature, Geometry } from 'geojson';
 import type { LatLngTuple } from 'leaflet';
 import dynamic from 'next/dynamic';
@@ -34,7 +34,7 @@ const Map = (props: MapProps) => {
                     center={DEFAULT_CENTER}>
                     {({ TileLayer, Marker, Popup, GeoJSON }) => (
                         <>
-                            <TileLayer {...tileLayer} />
+                            <TileLayer {...openStreetMap} />
 
                             <Marker position={DEFAULT_CENTER}>
                                 <Popup>
