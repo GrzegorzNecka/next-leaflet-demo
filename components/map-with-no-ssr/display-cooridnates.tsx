@@ -1,4 +1,4 @@
-import { useMap } from 'react-leaflet';
+import { useMap, useMapEvents } from 'react-leaflet';
 import type { LatLngTuple } from 'leaflet';
 import { useCallback, useEffect, useState } from 'react';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
@@ -8,6 +8,7 @@ type DisplayCoordinatesProps = { center: LatLngTuple; zoom: number };
 export function DisplayCoordinates({ center, zoom }: DisplayCoordinatesProps) {
     const map = useMap();
     const [position, setPosition] = useState(() => map.getCenter());
+    const [mapZoom, setMapZoom] = useState(() => map.getZoom());
 
     const handleOnClick = useCallback(() => {
         map.setView(center, zoom);
@@ -24,6 +25,12 @@ export function DisplayCoordinates({ center, zoom }: DisplayCoordinatesProps) {
         };
     }, [map, onMove]);
 
+    const mapEvents = useMapEvents({
+        zoomend: () => {
+            setMapZoom(map.getZoom());
+        },
+    });
+
     if (!map) return null;
     return (
         <div className={POSITION_CONTROLS.topright}>
@@ -34,6 +41,7 @@ export function DisplayCoordinates({ center, zoom }: DisplayCoordinatesProps) {
                         reset
                     </button>
                 </p>
+                <p>zoom: {mapZoom}</p>
             </div>
         </div>
     );

@@ -28,15 +28,6 @@ export const Wojewodztwa = () => {
         });
     }
 
-    // const mapEvents = useMapEvents({
-    //     click: (e) => {
-    //         console.log('🚀 ~ file: wojewodztwa.tsx:37 ~ Wojewodztwa ~ e', e);
-    //     },
-    //     locationfound: (location) => {
-    //         console.log('location found:', location);
-    //     },
-    // });
-
     if (!map) return null;
     return <GeoJSON data={wojewodztwa} onEachFeature={onEachFeature} />;
 };

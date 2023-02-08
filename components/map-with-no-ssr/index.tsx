@@ -3,7 +3,7 @@ import type { LatLngTuple } from 'leaflet';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './Map.module.scss';
-import { LayersControl, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { LayersControl, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import tileLayer from '@/utils/tile-Layer';
 import { Wojewodztwa } from './wojewodztwa';
 import { DisplayCoordinates } from './display-cooridnates';
