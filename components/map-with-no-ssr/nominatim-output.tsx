@@ -2,7 +2,7 @@ import type { NominatimSearchResult } from '@/types/leaflet';
 import type { Geometry } from 'geojson';
 import type { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Marker, Popup, useMap, GeoJSON } from 'react-leaflet';
+import { Marker, Popup, useMap, GeoJSON, Polyline } from 'react-leaflet';
 
 /**
  *
@@ -77,12 +77,13 @@ export function NominatimOutput({ selectedPlace }: NominatimOutputProps) {
     if (geojsonType === 'MultiLineString')
         return (
             <>
-                <Marker key={`${selectedPlace.place_id}_multiline`} position={position}>
+                <GeoJSON
+                    key={`${selectedPlace.place_id}_multiline`}
+                    data={selectedPlace.geojson as Geometry}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
-                </Marker>
-                {/* <SetBounds boundingbox={selectedPlace.boundingbox} /> */}
+                </GeoJSON>
             </>
         );
     return null;

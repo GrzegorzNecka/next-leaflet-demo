@@ -11,7 +11,6 @@ import type { NominatimSearchResult } from '@/types/leaflet';
 import L from 'leaflet';
 
 import { NominatimOutput } from './nominatim-output';
-import { FindPlace } from './find-place';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -48,7 +47,6 @@ const Map = ({ selectedPlace }: MapProps) => {
             <LayerControl />
             <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
             {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
-            {/* <FindPlace /> */}
         </MapContainer>
     );
 };
