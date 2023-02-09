@@ -1,5 +1,5 @@
 import { wojewodztwa } from '@/data/geojson';
-import openStreetMap from '@/utils/tile-layer';
+import { openStreetMap } from '@/utils/tile-layer';
 import type { Feature, Geometry } from 'geojson';
 import type { LatLngTuple } from 'leaflet';
 import dynamic from 'next/dynamic';

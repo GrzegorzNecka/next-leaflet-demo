@@ -1,6 +1,7 @@
 import type * as ReactLeaflet from 'react-leaflet';
 import type Leaflet from 'leaflet';
 import type { LatLngTuple } from 'leaflet';
+import type { Geometry } from 'geojson';
 
 type ReactLeafletType = typeof ReactLeaflet;
 type LeafletType = typeof Leaflet;
@@ -34,8 +35,9 @@ export type NominatimSearchResult = {
     importance: number;
     icon: string;
     geojson: {
+        // type: Geometry;
         type: string;
-        coordinates: LatLngTuple[][];
+        coordinates: LatLngTuple;
     };
 } | null;
 

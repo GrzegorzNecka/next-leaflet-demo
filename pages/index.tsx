@@ -12,15 +12,15 @@ const MapWithNoSSR = dynamic(() => import('@/components/map-with-no-ssr'), {
 });
 
 const Home = () => {
-    const [selectPosition, setSelectPosition] = useState<NominatimSearchResult>(null);
-    console.log('🚀 ~ file: index.tsx:16 ~ Home ~ selectPosition', selectPosition);
+    const [selectPlace, setSelectPlace] = useState<NominatimSearchResult>(null);
+
     return (
         <>
             {/* <Map width={800} height={900} /> */}
 
-            <MapWithNoSSR />
-            <NominatimSearchBox setSelectPosition={setSelectPosition} />
-            <pre>{selectPosition && JSON.stringify(selectPosition, null, 2)}</pre>
+            <MapWithNoSSR selectedPlace={selectPlace} />
+            <NominatimSearchBox setSelectPlace={setSelectPlace} />
+            <pre>{!!selectPlace && JSON.stringify(selectPlace, null, 2)}</pre>
         </>
     );
 };

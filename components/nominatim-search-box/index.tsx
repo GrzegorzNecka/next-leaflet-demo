@@ -1,25 +1,26 @@
 import type { NominatimSearchResult } from '@/types/leaflet';
 import type { Dispatch, SetStateAction } from 'react';
+import { useCallback } from 'react';
 import { useState } from 'react';
 
 type SearchBoxProps = {
-    setSelectPosition: Dispatch<SetStateAction<NominatimSearchResult | null>>;
+    setSelectPlace: Dispatch<SetStateAction<NominatimSearchResult | null>>;
 };
 
-export const NominatimSearchBox = ({ setSelectPosition }: SearchBoxProps) => {
+export const NominatimSearchBox = ({ setSelectPlace: setSelectPosition }: SearchBoxProps) => {
     const [searchText, setSearchText] = useState<string>('');
     const [listPlace, setListPlace] = useState<NominatimSearchResult[]>([]);
 
-    const handleInputOnClick = async () => {
-        const QUERY_STRING_PAARMETERS = {
+    const handleInputOnClick = useCallback(async () => {
+        const QUERY_STRING_PARAMS = {
             q: searchText,
             polygon_geojson: '1',
             format: 'jsonv2',
         };
 
-        const QUERY_STRING = new URLSearchParams(QUERY_STRING_PAARMETERS).toString();
-
-        const URL = `https://nominatim.openstreetmap.org/search.php?${QUERY_STRING}`;
+        const URL = `https://nominatim.openstreetmap.org/search.php?${new URLSearchParams(
+            QUERY_STRING_PARAMS,
+        )}`;
 
         const response = await fetch(URL, { method: 'GET', redirect: 'follow' });
 
@@ -30,8 +31,8 @@ export const NominatimSearchBox = ({ setSelectPosition }: SearchBoxProps) => {
         const data: NominatimSearchResult[] = await response.json();
         setListPlace(data);
 
-        console.log('🚀 ~ file: index.tsx:34 ~ handleInputOnClick ~ data', data);
-    };
+        // console.log('🚀 ~ file: index.tsx:34 ~ handleInputOnClick ~ data', data);
+    }, [searchText]);
 
     return (
         <div>
@@ -51,7 +52,7 @@ export const NominatimSearchBox = ({ setSelectPosition }: SearchBoxProps) => {
                     </div>
                 </div>
                 <div>
-                    <ul aria-label="main mailbox folders">
+                    <ul>
                         {listPlace.map((place) => {
                             return (
                                 <div key={place?.place_id}>

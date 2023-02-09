@@ -5,6 +5,7 @@ import { MarkersB } from './markers/b-marker-layer';
 import { OpenStreetLayer } from './tiles/openstreet-tile-layer';
 import { WojewodztwaGeojson } from './geojsons/wojewodztwa-geojson-layer';
 import { MaptilerLayer } from './tiles/maptiler-tile-layer';
+import { StanemLayer } from './tiles/stanem-tile-layer';
 
 // const ControllingGroup = () => {
 //     const map = useMapEvent('overlayadd', (e) => {
@@ -33,6 +34,7 @@ export function LayerControl() {
             <LayersControl position="topleft" collapsed={false}>
                 <MaptilerLayer />
                 <OpenStreetLayer />
+                {/* <StanemLayer /> */}
                 <WojewodztwaGeojson map={map} />
                 <MarkersA />
                 <MarkersB />

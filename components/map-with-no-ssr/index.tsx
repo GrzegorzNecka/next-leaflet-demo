@@ -1,15 +1,24 @@
 import { useEffect, useMemo, useState } from 'react';
-import Leaflet from 'leaflet';
+import type { LatLngExpression } from 'leaflet';
+import Leaflet, { LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from '@/styles/Map.module.css';
-import { MapContainer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, GeoJSON, useMap } from 'react-leaflet';
 import { DisplayCoordinates } from './display-cooridnates';
 import { LayerControl } from './layers/layers-control';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/initial-config';
+import type { NominatimSearchResult } from '@/types/leaflet';
+import L from 'leaflet';
 
-const Map = () => {
+import { NominatimOutput } from './nominatim-output';
+import { FindPlace } from './find-place';
+
+type MapProps = {
+    selectedPlace: NominatimSearchResult;
+};
+
+const Map = ({ selectedPlace }: MapProps) => {
     const mapClassName = styles.map;
-    const [map, setMap] = useState(null);
     const [isMap, setIsMap] = useState<boolean>(false);
 
     useEffect(() => {
@@ -38,6 +47,8 @@ const Map = () => {
             style={{ height: '900px', width: '1100px' }}>
             <LayerControl />
             <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
+            {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
+            {/* <FindPlace /> */}
         </MapContainer>
     );
 };
