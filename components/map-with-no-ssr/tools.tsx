@@ -9,7 +9,10 @@ export function Tools({ position, center, zoom }: ToolsProps) {
     const map = useMap();
     const [coords, setCoords] = useState(() => map.getCenter());
     const [mapZoom, setMapZoom] = useState(() => map.getZoom());
-
+    const [cursorCoords, setCursorCoords] = useState<{ lat: number; lng: number }>({
+        lat: 0.0,
+        lng: 0.0,
+    });
     //  Calculations
 
     const handleSetView = useCallback(() => {
@@ -39,6 +42,9 @@ export function Tools({ position, center, zoom }: ToolsProps) {
         zoomend: () => {
             setMapZoom(map.getZoom());
         },
+        mousemove: (e) => {
+            setCursorCoords({ lat: e.latlng.lat, lng: e.latlng.lng });
+        },
     });
 
     if (!map) return null;
@@ -65,6 +71,13 @@ export function Tools({ position, center, zoom }: ToolsProps) {
                             onClick={handleSetZoom}>
                             reset
                         </button>
+                    </p>
+                </div>
+                <div className=" shadow-xl px-2 py-2 flex    justify-center items-center  gap-6 max-w-sm backdrop-blur-sm bg-white/50">
+                    <p className="text-gray-700 text-xs ">
+                        {`cursor: lat ${cursorCoords.lat.toFixed(4)}  ${cursorCoords.lng.toFixed(
+                            4,
+                        )} `}
                     </p>
                 </div>
             </div>

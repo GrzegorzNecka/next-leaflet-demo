@@ -10,6 +10,7 @@ import type { NominatimSearchResult } from '@/types/leaflet';
 
 import { NominatimOutput } from './nominatim-output';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
+import { CustomSquare } from '../core/custom-square';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -56,6 +57,12 @@ const Map = ({ selectedPlace }: MapProps) => {
             />
 
             {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
+
+            {/* -- CORE  */}
+
+            <CustomSquare center={INITIAL_CENTER} size={60000} />
+
+            {/* ----  */}
         </MapContainer>
     );
 };
