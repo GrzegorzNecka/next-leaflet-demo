@@ -6,8 +6,8 @@ import type { Map } from 'leaflet';
 
 function bindPopupWithGeoJsonProperty(feature: Feature<Geometry, any>, layer: L.Layer) {
     if (feature.properties && feature.properties.nazwa) {
-        // layer.bindPopup(`województwo: ${feature.properties.nazwa}`);
-        // layer.off;
+        layer.bindPopup(`województwo: ${feature.properties.nazwa}`);
+        layer.off;
     }
 }
 
