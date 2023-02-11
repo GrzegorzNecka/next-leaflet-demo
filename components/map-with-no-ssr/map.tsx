@@ -1,16 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
-import type { LatLngExpression } from 'leaflet';
-import Leaflet, { LatLngTuple } from 'leaflet';
+import { useEffect, useState } from 'react';
+import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from '@/styles/Map.module.css';
-import { MapContainer, Marker, Popup, GeoJSON, useMap } from 'react-leaflet';
-import { DisplayCoordinates } from './display-cooridnates';
-import { LayerControl } from './layers/layers-control';
-import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/initial-config';
+import { MapContainer, ZoomControl } from 'react-leaflet';
+import { Tools } from './tools';
+import { LayerControl } from './layers-control';
+import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/leaflet-config';
 import type { NominatimSearchResult } from '@/types/leaflet';
-import L from 'leaflet';
 
 import { NominatimOutput } from './nominatim-output';
+import { POSITION_CONTROLS } from '@/utils/position-controls';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -42,10 +41,20 @@ const Map = ({ selectedPlace }: MapProps) => {
             className={mapClassName}
             center={INITIAL_CENTER}
             zoom={INITIAL_ZOOM}
+            zoomControl={false}
             scrollWheelZoom={true}
-            style={{ height: '900px', width: '1100px' }}>
+            // style={{ height: '900px', width: '1100px' }}
+        >
             <LayerControl />
-            <DisplayCoordinates center={INITIAL_CENTER} zoom={INITIAL_ZOOM} />
+
+            <ZoomControl position="topright" />
+
+            <Tools
+                position={POSITION_CONTROLS.bottomleft}
+                center={INITIAL_CENTER}
+                zoom={INITIAL_ZOOM}
+            />
+
             {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
         </MapContainer>
     );

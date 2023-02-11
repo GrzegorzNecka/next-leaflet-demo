@@ -14,13 +14,13 @@ export const Layout = ({ children }: LayoutProps) => {
                 <meta name="description" content="demo leaflet map"></meta>
             </Head>
 
-            <Header>
+            {/* <Header>
                 <Navigation />
-            </Header>
+            </Header> */}
 
             <div className="flex-grow">{children}</div>
 
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

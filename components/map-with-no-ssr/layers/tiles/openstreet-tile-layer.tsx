@@ -1,5 +1,9 @@
-import { FeatureGroup, LayersControl, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import { openStreetMap } from '@/utils/tile-layer';
+import { FeatureGroup, LayersControl, TileLayer } from 'react-leaflet';
+
+const openStreetMap = {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+};
 
 export function OpenStreetLayer() {
     return (

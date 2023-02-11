@@ -1,12 +1,8 @@
 import { wojewodztwa } from '@/data/geojson';
-import { openStreetMap } from '@/utils/tile-layer';
-import type { Feature, Geometry } from 'geojson';
+
 import type { LatLngTuple } from 'leaflet';
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
 import type { MapProps } from '../../types/leaflet';
-import { useLeafletContext } from '@react-leaflet/core';
-import type L from 'leaflet';
 import { onEachFeature } from '@/utils/geo-json';
 
 //becouse external dependency  relies on browser APIs like window.
@@ -34,8 +30,11 @@ const Map = (props: MapProps) => {
                     center={DEFAULT_CENTER}>
                     {({ TileLayer, Marker, Popup, GeoJSON }) => (
                         <>
-                            <TileLayer {...openStreetMap} />
-
+                            {' '}
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
                             <Marker position={DEFAULT_CENTER}>
                                 <Popup>
                                     A pretty CSS3 popup. <br /> Easily customizable.

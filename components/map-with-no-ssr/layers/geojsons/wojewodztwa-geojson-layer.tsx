@@ -1,7 +1,7 @@
 import { FeatureGroup, LayersControl, GeoJSON, Popup, TileLayer, useMap } from 'react-leaflet';
 import type { Feature, Geometry } from 'geojson';
 import { wojewodztwa } from '@/data/geojson';
-import { usePointerState } from '@/context/pointer-context';
+import { usePointerState } from '@/_context/pointer-context';
 import type { Map } from 'leaflet';
 
 function bindPopupWithGeoJsonProperty(feature: Feature<Geometry, any>, layer: L.Layer) {
@@ -17,7 +17,7 @@ export function WojewodztwaGeojson({ map }: WojewodztwaGeojsonProps) {
     const pointerState = usePointerState();
 
     function onEachFeature(feature: Feature<Geometry, any>, layer: L.Path) {
-        layer.setStyle({ fillColor: 'black', color: 'red', weight: 2, fillOpacity: 0.1 });
+        layer.setStyle({ fillColor: 'white', color: 'rgb(37 99 235)', weight: 2, fillOpacity: 0 });
 
         layer.on('click', function (e) {
             pointerState.addPosition(e.latlng);
@@ -26,20 +26,21 @@ export function WojewodztwaGeojson({ map }: WojewodztwaGeojsonProps) {
         layer.on('mousemove', function (e) {
             if (map.getZoom() >= 9) {
                 bindPopupWithGeoJsonProperty(feature, layer);
-                layer.setStyle({ fillColor: 'black', color: 'red', weight: 2, fillOpacity: 0.1 });
+                layer.setStyle({ fillOpacity: 0 });
             }
         });
 
         layer.on('mouseover', function (e) {
             if (map.getZoom() < 9) {
                 bindPopupWithGeoJsonProperty(feature, layer);
-                layer.setStyle({ fillColor: 'red', fillOpacity: 0.2 });
+                layer.setStyle({ fillColor: 'rgb(147 197 253)', fillOpacity: 0.1 });
             }
         });
+
         layer.on('mouseout', function (e) {
             bindPopupWithGeoJsonProperty(feature, layer);
 
-            layer.setStyle({ fillColor: 'black', fillOpacity: 0.1 });
+            layer.setStyle({ fillColor: 'rgb(147 197 253)', fillOpacity: 0 });
         });
     }
 

@@ -53,38 +53,19 @@ export function NominatimOutput({ selectedPlace }: NominatimOutputProps) {
         return (
             <>
                 <Marker key={`${selectedPlace.place_id}_point`} position={position}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
+                    <Popup>{`${selectedPlace.display_name}`}</Popup>
                 </Marker>
             </>
         );
     }
-    if (geojsonType === 'Polygon') {
-        return (
-            <>
-                <GeoJSON
-                    key={`${selectedPlace.place_id}_polygon`}
-                    data={selectedPlace.geojson as Geometry}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </GeoJSON>
-            </>
-        );
-    }
 
-    if (geojsonType === 'MultiLineString')
-        return (
-            <>
-                <GeoJSON
-                    key={`${selectedPlace.place_id}_multiline`}
-                    data={selectedPlace.geojson as Geometry}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </GeoJSON>
-            </>
-        );
-    return null;
+    return (
+        <>
+            <GeoJSON
+                key={`${selectedPlace.place_id}_multiline`}
+                data={selectedPlace.geojson as Geometry}>
+                <Popup>{`${selectedPlace.display_name}`}</Popup>
+            </GeoJSON>
+        </>
+    );
 }
