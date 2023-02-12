@@ -1,13 +1,34 @@
-# 🍃 Next.js Leaflet Demo
+# Next.js Leaflet Demo
 
 Next.js mapping project with Leaflet!
 
-## 🧰 What This Includes
+## My Envirolment
+
+-   System:
+    -   OS: Windows 10 10.0.19043
+-   Binaries:
+    -   Node: 16.15.1
+    -   Yarn: 1.22.17
+    -   npm: 8.11.0
+    -   git: 2.31.1.windows.1
+-   npmPackages:
+    -   next: 12.3.1 => 12.3.1
+    -   react: 18.2.0 => 18.2.0
+
+## What This Includes
+
+### Libraries
 
 -   [Yarn](https://yarnpkg.com/en/)
 -   [Next.js](https://nextjs.org/)
 -   [Leaflet](https://leafletjs.com/)
 -   [React Leaflet](https://react-leaflet.js.org)
+
+### GeoJson sources and API for presenting layers from lifelet.js
+
+-   [Jednostki administracyjne](https://capap.gugik.gov.pl/cat/org/gugik/dane/jednostki-administracyjne-f5cnk)
+-   [Nominatim](https://nominatim.org/release-docs/latest/api/Overview/)
+-   [API Geoportal](http://capap.gugik.gov.pl/api/fts/#_overview)
 
 ## 🚀 Getting Started
 
