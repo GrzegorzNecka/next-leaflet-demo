@@ -50,8 +50,8 @@ export function Tools({ position, center, zoom }: ToolsProps) {
     if (!map) return null;
     return (
         <div className={position}>
-            <div className="leaflet-control rounded-lg flex justify-between items-start gap-6">
-                <div className=" shadow-xl px-2 py-2 flex justify-center items-center gap-6 max-w-sm backdrop-blur bg-white/50">
+            <div className="leaflet-control rounded-lg flex justify-between items-center gap-2">
+                <div className=" shadow-xl px-2 py-2 flex justify-center items-center gap-6 max-w-sm backdrop-blur bg-white/50  rounded-sm border-2 border-gray-400/20">
                     <p className="text-gray-700 text-xs ">
                         lat: {coords.lat.toFixed(4)}, lon: {coords.lng.toFixed(4)}
                         <button
@@ -62,7 +62,7 @@ export function Tools({ position, center, zoom }: ToolsProps) {
                         </button>
                     </p>
                 </div>
-                <div className=" shadow-xl px-2 py-2 flex    justify-center items-center  gap-6 max-w-sm backdrop-blur-sm bg-white/50">
+                <div className=" shadow-xl px-2 py-2 flex    justify-center items-center  gap-6 max-w-sm backdrop-blur-sm bg-white/50  rounded-sm border-2 border-gray-400/20">
                     <p className="text-gray-700 text-xs ">
                         zoom: {mapZoom}
                         <button
@@ -73,11 +73,11 @@ export function Tools({ position, center, zoom }: ToolsProps) {
                         </button>
                     </p>
                 </div>
-                <div className=" shadow-xl px-2 py-2 flex    justify-center items-center  gap-6 max-w-sm backdrop-blur-sm bg-white/50">
+                <div className=" shadow-xl px-3 py-2 flex justify-center items-center  gap-6 max-w-sm backdrop-blur-sm  bg-white/50 rounded-sm border-2 border-gray-400/20">
                     <p className="text-gray-700 text-xs ">
-                        {`cursor: lat ${cursorCoords.lat.toFixed(4)}  ${cursorCoords.lng.toFixed(
+                        {`cursor: lat ${cursorCoords.lat.toFixed(
                             4,
-                        )} `}
+                        )}  lon ${cursorCoords.lng.toFixed(4)} `}
                     </p>
                 </div>
             </div>
