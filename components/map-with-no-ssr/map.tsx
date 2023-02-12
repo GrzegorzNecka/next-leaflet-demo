@@ -60,7 +60,7 @@ const Map = ({ selectedPlace }: MapProps) => {
 
             {/* -- CORE  */}
 
-            <CustomSquare center={INITIAL_CENTER} size={60000} />
+            <CustomSquare center={INITIAL_CENTER} size={2000} />
 
             {/* ----  */}
         </MapContainer>
