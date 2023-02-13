@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import Leaflet from 'leaflet';
+import Leaflet, { Circle, FeatureGroup, Popup, Rectangle, divIcon, rectangle } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from '@/styles/Map.module.css';
-import { MapContainer, ZoomControl } from 'react-leaflet';
+import { LayerGroup, MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { Tools } from './tools';
 import { LayerControl } from './layers-control';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/leaflet-config';
 import type { NominatimSearchResult } from '@/types/leaflet';
-
 import { NominatimOutput } from './nominatim-output';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
-import { CustomSquare } from '../core/custom-square';
+import { CustomSquare } from '../leaflet-core/custom-square';
+import CustomControl from '../leaflet-core/custom-control';
+import LayersCustomControlProvider from '../leaflet-core/test/LayerControlContext';
+import CreateControlledLayer from '../leaflet-core/test/ControlledLayer';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -60,8 +62,29 @@ const Map = ({ selectedPlace }: MapProps) => {
 
             {/* -- CORE  */}
 
-            <CustomSquare center={INITIAL_CENTER} size={2000} />
+            <CustomSquare center={INITIAL_CENTER} size={60000} />
 
+            <CustomControl container={{ role: 'navigation' }} prepend position="bottomright">
+                <div className="bg-gray-100">
+                    <div> 1 custom layer </div>
+                    <div> 2 custom layer </div>
+                </div>
+            </CustomControl>
+            <LayersCustomControlProvider position="topright">
+                <CreateControlledLayer checked name="OpenStreetMap" group="Base Layers">
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                </CreateControlledLayer>
+
+                <CreateControlledLayer name="OpenStreetMap B&W" group="Layer Group">
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                    />
+                </CreateControlledLayer>
+            </LayersCustomControlProvider>
             {/* ----  */}
         </MapContainer>
     );

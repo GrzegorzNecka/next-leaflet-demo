@@ -1,7 +1,7 @@
 import { FeatureGroup, LayersControl, GeoJSON, Popup, TileLayer, useMap } from 'react-leaflet';
 import type { Feature, Geometry } from 'geojson';
 import { wojewodztwa } from '@/data/geojson';
-import { usePointerState } from '@/_context/pointer-context';
+import { usePointerState } from '@/context/_pointer-context';
 import type { Map } from 'leaflet';
 
 function bindPopupWithGeoJsonProperty(feature: Feature<Geometry, any>, layer: L.Layer) {
