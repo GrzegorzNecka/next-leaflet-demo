@@ -11,8 +11,7 @@ import { NominatimOutput } from './nominatim-output';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
 import { CustomSquare } from '../leaflet-core/custom-square';
 import CustomControl from '../leaflet-core/custom-control';
-import LayersCustomControlProvider from '../leaflet-core/test/LayerControlContext';
-import CreateControlledLayer from '../leaflet-core/test/ControlledLayer';
+import CustomLayerControl from '../leaflet-core/custom-layer-control-WIP/custom-layer-control';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -70,21 +69,9 @@ const Map = ({ selectedPlace }: MapProps) => {
                     <div> 2 custom layer </div>
                 </div>
             </CustomControl>
-            <LayersCustomControlProvider position="topright">
-                <CreateControlledLayer checked name="OpenStreetMap" group="Base Layers">
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                </CreateControlledLayer>
 
-                <CreateControlledLayer name="OpenStreetMap B&W" group="Layer Group">
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                    />
-                </CreateControlledLayer>
-            </LayersCustomControlProvider>
+            <CustomLayerControl></CustomLayerControl>
+
             {/* ----  */}
         </MapContainer>
     );

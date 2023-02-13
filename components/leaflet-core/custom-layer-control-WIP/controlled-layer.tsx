@@ -1,23 +1,37 @@
 import { LeafletProvider, useLeafletContext } from '@react-leaflet/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLayerControlContext } from './LayerControlContext';
+import { useLayerControlContext } from '../../../context/custom-layer-control-context';
 import type { Layer } from 'leaflet';
 import type { CreateControlledLayerProps, LayerObject } from './types';
 
-export default function CreateControlledLayer({ ...props }: CreateControlledLayerProps) {
+/**
+ *
+ * ControlledLayer: https://react-leaflet.js.org/docs/core-api/#controlledlayer
+ * LeafletContextInterface: https://react-leaflet.js.org/docs/core-api/#leafletcontextinterface
+ *
+ */
+
+let stopReRender = true;
+
+export default function ControlledLayer({ ...props }: CreateControlledLayerProps) {
     //------------
 
     //-
     const context = useLeafletContext();
     const layerContext = useLayerControlContext();
     const propsRef = useRef(props);
+
     const [layer, setLayer] = useState<Layer | null>(null);
 
     //------------
 
     const addLayer = useCallback(
         (layer: Layer) => {
-            if (propsRef.current.checked) {
+            if (stopReRender === false) {
+                return;
+            }
+
+            if (propsRef.current.checked === true) {
                 context.map.addLayer(layer);
             }
 
@@ -28,8 +42,12 @@ export default function CreateControlledLayer({ ...props }: CreateControlledLaye
             });
 
             setLayer(layer);
+            // return () => {
+            //     stopReRender = false;
+            // };
         },
-        [context],
+
+        [],
     );
 
     //------------
@@ -47,34 +65,34 @@ export default function CreateControlledLayer({ ...props }: CreateControlledLaye
 
     //------------
 
-    const newContext = useMemo(
-        function makeNewContext() {
-            if (!context) {
-                return null;
-            }
+    const newContext = useMemo(() => {
+        if (!context) {
+            return null;
+        }
 
-            return Object.assign({}, context, {
-                layerContainer: {
-                    addLayer,
-                    removeLayer,
-                },
-            });
-        },
-        [context, addLayer, removeLayer],
-    );
+        return Object.assign({}, context, {
+            layerContainer: {
+                addLayer,
+                removeLayer,
+            },
+        });
+    }, [context, addLayer, removeLayer]);
 
     //------------
 
     useEffect(() => {
+        if (stopReRender === false) {
+            return;
+        }
         if (layer !== null && propsRef.current !== props) {
             if (
                 props.checked === true &&
-                (propsRef.current.checked == null || propsRef.current.checked === false)
+                (propsRef.current.checked === null || propsRef.current.checked === false)
             ) {
                 context.map.addLayer(layer);
             } else if (
                 propsRef.current.checked === true &&
-                (props.checked == null || props.checked === false)
+                (props.checked === null || props.checked === false)
             ) {
                 context.map.removeLayer(layer);
             }
@@ -82,16 +100,20 @@ export default function CreateControlledLayer({ ...props }: CreateControlledLaye
             propsRef.current = props;
         }
 
-        return function checker() {
-            if (layer !== null) {
-                if (!context.layersControl) {
-                    return;
-                }
+        // return () => {
+        //     if (layer !== null) {
+        //         if (!context.layersControl) {
+        //             return;
+        //         }
 
-                context.map.removeLayer(layer);
-            }
+        //         context.map.removeLayer(layer);
+        //     }
+        // };
+
+        return () => {
+            stopReRender = false;
         };
-    }, [context.layersControl, context.map, layer, props]);
+    }, [stopReRender]);
 
     if (props.children) {
         return <LeafletProvider value={newContext}>{props.children}</LeafletProvider>;

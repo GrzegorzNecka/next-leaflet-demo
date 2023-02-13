@@ -12,7 +12,7 @@ import type {
     LayersCustomControlProviderProps,
     LayerObject,
     HandleAddGroupProp,
-} from './types';
+} from '../components/leaflet-core/custom-layer-control-WIP/types';
 
 export const LayersControlContext = createContext<State | null>(null);
 
