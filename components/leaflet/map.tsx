@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
-import Leaflet, { Circle, FeatureGroup, Popup, Rectangle, divIcon, rectangle } from 'leaflet';
+import Leaflet, { Circle, FeatureGroup, Icon, Popup, Rectangle, divIcon, rectangle } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from '@/styles/Map.module.css';
 import { LayerGroup, MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
-import { Tools } from './tools';
+import { Tools } from './tools/tools';
 import { LayerControl } from './layers-control';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/leaflet-config';
 import type { NominatimSearchResult } from '@/types/leaflet';
 import { NominatimOutput } from './nominatim-output';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
-import { CustomSquare } from '../leaflet-core/custom-square';
-import CustomControl from '../leaflet-core/custom-control';
-import CustomLayerControl from '../leaflet-core/custom-layer-control-WIP/custom-layer-control';
+import { CustomSquare } from '../../only-dev-sources/leaflet-core/custom-square-core-example/custom-square-8';
+import CustomControlContainer_v1 from '../../only-dev-sources/leaflet-core/custom-control-container';
+import CustomGroupControlLayer_v1 from '../../only-dev-sources/leaflet-core/custom-group-control-layer_v1';
+import { GroupedLayersV1 } from '../../only-dev-sources/leaflet-core/grouped-layers-v1';
+import { CustomRawControlLayer_v1 } from '../../only-dev-sources/leaflet-core/raw-control-layer';
+import { CustomWatermark } from '../leaflet-core/watermark';
+
+// import RenderLayerControl from '../leaflet-core/chtbox';
 
 type MapProps = {
     selectedPlace: NominatimSearchResult;
@@ -36,6 +41,10 @@ const Map = ({ selectedPlace }: MapProps) => {
         })();
     }, [isMap]);
 
+    //--
+
+    //--
+
     return (
         <MapContainer
             key={new Date().getTime()}
@@ -57,22 +66,29 @@ const Map = ({ selectedPlace }: MapProps) => {
                 zoom={INITIAL_ZOOM}
             />
 
+            <CustomWatermark position={'topright'} />
+
             {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
 
-            {/* -- CORE  */}
+            {/* start ---- only-dev-sources ----  */}
 
-            <CustomSquare center={INITIAL_CENTER} size={60000} />
+            <CustomSquare center={INITIAL_CENTER} size={600000} />
 
-            <CustomControl container={{ role: 'navigation' }} prepend position="bottomright">
+            <CustomControlContainer_v1
+                container={{ role: 'navigation' }}
+                prepend
+                position="bottomright">
                 <div className="bg-gray-100">
                     <div> 1 custom layer </div>
                     <div> 2 custom layer </div>
                 </div>
-            </CustomControl>
+            </CustomControlContainer_v1>
 
-            <CustomLayerControl></CustomLayerControl>
+            <CustomGroupControlLayer_v1 />
 
-            {/* ----  */}
+            <CustomRawControlLayer_v1 />
+
+            {/* ---- only-dev-sources ---- end */}
         </MapContainer>
     );
 };

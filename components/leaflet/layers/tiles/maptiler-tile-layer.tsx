@@ -24,11 +24,9 @@ const mapTilerMapStreet = {
 export function MaptilerLayer() {
     return (
         <>
-            <LayersControl.Overlay checked name="maptiler composition">
-                <FeatureGroup>
-                    <TileLayer {...mapTilerMapStreet} />
-                </FeatureGroup>
-            </LayersControl.Overlay>
+            <FeatureGroup>
+                <TileLayer {...mapTilerMapStreet} />
+            </FeatureGroup>
         </>
     );
 }

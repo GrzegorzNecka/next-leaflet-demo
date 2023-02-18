@@ -8,11 +8,9 @@ const openStreetMap = {
 export function OpenStreetLayer() {
     return (
         <>
-            <LayersControl.Overlay name="open street map">
-                <FeatureGroup>
-                    <TileLayer {...openStreetMap} />
-                </FeatureGroup>
-            </LayersControl.Overlay>
+            <FeatureGroup>
+                <TileLayer {...openStreetMap} />
+            </FeatureGroup>
         </>
     );
 }

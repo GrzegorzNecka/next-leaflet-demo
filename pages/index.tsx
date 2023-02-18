@@ -1,12 +1,13 @@
 import dynamic from 'next/dynamic';
-import Map from '@/components/_map-render-props/map';
+import Map from '@/only-dev-sources/map-render-props/map';
 import { divIcon } from 'leaflet';
-import MapLoader from '@/components/map-with-no-ssr/map-loader';
+
 import { NominatimSearchBox } from '@/components/nominatim-search-box';
 import { useState } from 'react';
 import type { NominatimSearchResult } from '@/types/leaflet';
+import MapLoader from '@/components/leaflet/map-loader';
 
-const MapWithNoSSR = dynamic(() => import('@/components/map-with-no-ssr/map'), {
+const MapWithNoSSR = dynamic(() => import('@/components/leaflet/map'), {
     ssr: false,
     loading: MapLoader,
 });

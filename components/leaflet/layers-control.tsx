@@ -1,5 +1,4 @@
-import type { ControlledLayerProps, LayersControlProps } from 'react-leaflet';
-import { LayerGroup, LayersControl, useMap } from 'react-leaflet';
+import { LayerGroup, LayersControl, useMap, useMapEvents } from 'react-leaflet';
 
 import { MarkersA } from './layers/markers/a-marker-layer';
 import { MarkersB } from './layers/markers/b-marker-layer';
@@ -8,10 +7,23 @@ import { WojewodztwaGeojson } from './layers/geojsons/wojewodztwa-geojson-layer'
 import { MaptilerLayer } from './layers/tiles/maptiler-tile-layer';
 import type { FunctionComponent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import type { Control, Layer } from 'leaflet';
+import type { Control, Layer, Path } from 'leaflet';
+import { GroupedLayersV1 } from '../../only-dev-sources/leaflet-core/grouped-layers-v1';
 
 export function LayerControl() {
+    // const refLayerGroup = useRef(null)
+
     const map = useMap();
+
+    // const map = useMapEvents({
+    //     overlayadd: (e) => {
+    //         console.log(e);
+    //         // refLayerGroup.current.(getLayerId)
+    //     },
+    //     overlayremove: (e) => {
+    //         console.log(e);
+    //     },
+    // });
 
     // const [section, setSection] = useState<HTMLDivElement | null>(null);
 
@@ -47,22 +59,38 @@ export function LayerControl() {
     }
 
     return (
-        <>
-            <LayersControl
-                sortFunction={handleSortFunction}
-                // ref={containerRef}
-                sortLayers={true}
-                position="topleft"
-                collapsed={false}>
-                <LayersControl.Overlay name="Marker with popup">
-                    <MaptilerLayer />
-                    <OpenStreetLayer />
-                    <WojewodztwaGeojson map={map} />
+        <LayersControl
+            sortFunction={handleSortFunction}
+            sortLayers={true}
+            position="topleft"
+            collapsed={false}>
+            <LayersControl.Overlay name="open street map">
+                <OpenStreetLayer />
+            </LayersControl.Overlay>
 
-                    <MarkersA />
+            <LayersControl.Overlay checked name="maptiler composition">
+                <MaptilerLayer />
+            </LayersControl.Overlay>
+
+            <LayersControl.Overlay name="wojewodzta">
+                <WojewodztwaGeojson map={map} />
+            </LayersControl.Overlay>
+
+            {/* <FeatureGroup ref={refMarkers}> */}
+            <LayerGroup>
+                <LayersControl.Overlay name="marker 1">
+                    <LayerGroup>
+                        <MarkersA />
+                        <MarkersB />
+                    </LayerGroup>
+                </LayersControl.Overlay>
+
+                <LayersControl.Overlay name="marker 2 ">
                     <MarkersB />
                 </LayersControl.Overlay>
-            </LayersControl>
-        </>
+            </LayerGroup>
+
+            {/* </FeatureGroup> */}
+        </LayersControl>
     );
 }
