@@ -22,7 +22,7 @@ interface Options {
 
 type Props = Options;
 
-export function CustomWatermark(props: Props) {
+export function WatermarkBrand(props: Props) {
     const context = useLeafletContext();
 
     const controlExtend = useRef<typeof Control | null>(null);

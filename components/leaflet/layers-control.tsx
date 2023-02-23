@@ -8,7 +8,6 @@ import { MaptilerLayer } from './layers/tiles/maptiler-tile-layer';
 import type { FunctionComponent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { Control, Layer, Path } from 'leaflet';
-import { GroupedLayersV1 } from '../../only-dev-sources/leaflet-core/grouped-layers-v1';
 
 export function LayerControl() {
     // const refLayerGroup = useRef(null)

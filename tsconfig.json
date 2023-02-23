@@ -17,8 +17,12 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./*"]
-        }
+        },
+        "typeRoots": ["./node_modules/@types", "./typings"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    "include": ["l-control-layers-tree.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": [
+        "node_modules",
+        "@/only-dev-sources/leaflet-core/custom-core-layer-group-control/_leaflet-src.js"
+    ]
 }

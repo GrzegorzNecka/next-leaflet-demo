@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
-import Leaflet, { Circle, FeatureGroup, Icon, Popup, Rectangle, divIcon, rectangle } from 'leaflet';
+import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import styles from '@/styles/Map.module.css';
-import { LayerGroup, MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
+import styles from '@/styles/modules/map.module.scss';
+import { MapContainer, ZoomControl } from 'react-leaflet';
 import { Tools } from './tools/tools';
 import { LayerControl } from './layers-control';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/utils/leaflet-config';
-import type { NominatimSearchResult } from '@/types/leaflet';
 import { NominatimOutput } from './nominatim-output';
 import { POSITION_CONTROLS } from '@/utils/position-controls';
 import { CustomSquare } from '../../only-dev-sources/leaflet-core/custom-square-core-example/custom-square-8';
-import CustomControlContainer_v1 from '../../only-dev-sources/leaflet-core/custom-control-container';
-import CustomGroupControlLayer_v1 from '../../only-dev-sources/leaflet-core/custom-group-control-layer_v1';
-import { GroupedLayersV1 } from '../../only-dev-sources/leaflet-core/grouped-layers-v1';
-import { CustomRawControlLayer_v1 } from '../../only-dev-sources/leaflet-core/raw-control-layer';
-import { CustomWatermark } from '../leaflet-core/watermark';
+import { WatermarkBrand } from '../leaflet-core/watermark';
+import CustomGroupControlLayer_v2 from '@/only-dev-sources/leaflet-core/custom-core-layer-group-control';
+import type { NominatimSearchResult } from '@/types/leaflet';
+import { GroupedLayerControl } from '@/only-dev-sources/leaflet-core/grouped-layer-control-plugin';
+import { ControlLayersTree } from '@/only-dev-sources/leaflet-core/control-layers-tree';
 
 // import RenderLayerControl from '../leaflet-core/chtbox';
 
@@ -56,6 +55,8 @@ const Map = ({ selectedPlace }: MapProps) => {
             scrollWheelZoom={true}
             // style={{ height: '900px', width: '1100px' }}
         >
+            <WatermarkBrand position={'bottomright'} />
+
             <LayerControl />
 
             <ZoomControl position="topright" />
@@ -66,27 +67,15 @@ const Map = ({ selectedPlace }: MapProps) => {
                 zoom={INITIAL_ZOOM}
             />
 
-            <CustomWatermark position={'topright'} />
-
             {!!selectedPlace && <NominatimOutput selectedPlace={selectedPlace} />}
 
             {/* start ---- only-dev-sources ----  */}
 
-            <CustomSquare center={INITIAL_CENTER} size={600000} />
+            <ControlLayersTree position={'topleft'} />
 
-            <CustomControlContainer_v1
-                container={{ role: 'navigation' }}
-                prepend
-                position="bottomright">
-                <div className="bg-gray-100">
-                    <div> 1 custom layer </div>
-                    <div> 2 custom layer </div>
-                </div>
-            </CustomControlContainer_v1>
-
-            <CustomGroupControlLayer_v1 />
-
-            <CustomRawControlLayer_v1 />
+            {/* <CustomSquare center={INITIAL_CENTER} size={600000} /> */}
+            {/* <GroupedLayerControl />
+                 <CustomGroupControlLayer_v2 /> */}
 
             {/* ---- only-dev-sources ---- end */}
         </MapContainer>

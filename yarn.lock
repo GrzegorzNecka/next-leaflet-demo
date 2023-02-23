@@ -1645,7 +1645,19 @@ leaflet-fullscreen@^1.0.2:
   resolved "https://registry.yarnpkg.com/leaflet-fullscreen/-/leaflet-fullscreen-1.0.2.tgz#09c61c4bac45f63b2ee126afd87e5cd97650fc1b"
   integrity sha512-1Yxm8RZg6KlKX25+hbP2H/wnOAphH7hFcvuADJFb4QZTN7uOSN9Hsci5EZpow8vtNej9OGzu59Jxmn+0qKOO9Q==
 
-leaflet@^1.9.3:
+leaflet-groupedlayercontrol@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/leaflet-groupedlayercontrol/-/leaflet-groupedlayercontrol-0.6.1.tgz#cb7097c798c6b4dee644e8ab84c0e70b6a3e1caa"
+  integrity sha512-xkGeH6ygcryFQI0FUWn6Bz93zlwrOSpeXgJQ3jLRoUQJ5h/Qgrz+GqR9nhBFfikjUKtC1sCKL3eDR9wNTWhLlA==
+  dependencies:
+    leaflet "^1.0.1"
+
+leaflet.control.layers.tree@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/leaflet.control.layers.tree/-/leaflet.control.layers.tree-1.1.0.tgz#84b5818a2d9620434be3a6ddbed221c49211d31c"
+  integrity sha512-B4/dfplsWL2ozra6UcHOfsA20ncmtBwu2HRNdrUSB5Xcd+kK5Tuxb9I+YyjE30cy2oRA3jHoM9sU11aFXAEaBA==
+
+leaflet@^1.0.1, leaflet@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.3.tgz#52ec436954964e2d3d39e0d433da4b2500d74414"
   integrity sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==
